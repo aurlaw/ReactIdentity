@@ -35,10 +35,30 @@ npm install
 
 Run application
 
-From the ReactIdentity folder:
 ```
-dotnet run
+dotnet run --project ReactIdentity/ReactIdentity.csproj
 ```
 
 Launches server at https://localhost:9001
 
+
+## EF Migrations
+
+Migrations are managed within the ReactIdentity.Infrastructer class project
+
+Ensure entity framework tools are installed
+
+```
+dotnet tool install -g dotnet-ef
+```
+
+Migrations
+```
+dotnet ef migrations add {MIGRATION} --project ReactIdentity.Infrastructure/ReactIdentity.Infrastructure.csproj --startup-project ReactIdentity/ReactIdentity.csproj
+```
+
+Update database
+
+```
+dotnet ef database update --project ReactIdentity.Infrastructure/ReactIdentity.Infrastructure.csproj --startup-project ReactIdentity/ReactIdentity.csproj
+```

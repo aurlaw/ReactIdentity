@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using ReactIdentity.Data;
-using ReactIdentity.Models;
+using ReactIdentity.Infrastructure.Data;
+using ReactIdentity.Infrastructure.Models;
 
 [assembly: HostingStartup(typeof(ReactIdentity.Areas.Identity.IdentityHostingStartup))]
 namespace ReactIdentity.Areas.Identity
