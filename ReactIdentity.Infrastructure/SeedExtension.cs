@@ -16,7 +16,6 @@ namespace ReactIdentity.Infrastructure
         {
             using (var scope = app.ApplicationServices.CreateScope()) 
             {
-
                 var context = scope.ServiceProvider.GetRequiredService<AppIdentityDbContext>();
                 // create roles
                 var roles = new string[]{Roles.Admin, Roles.Consumer};
@@ -34,8 +33,8 @@ namespace ReactIdentity.Infrastructure
                 var adminUser = new ApplicationUser 
                 {
                     FirstName = "Admin",
+                    LastName = "User",
                     Email = "admin@example.com",
-                    UserName = "admin",
                     EmailConfirmed = true,
                     PhoneNumber = "+111111111111",
                     PhoneNumberConfirmed = true,
@@ -44,6 +43,7 @@ namespace ReactIdentity.Infrastructure
                     
                 };
                 adminUser.NormalizedEmail = adminUser.Email.ToUpper();
+                adminUser.UserName = adminUser.Email;
                 adminUser.NormalizedUserName = adminUser.UserName.ToUpper();
 
                 if(!context.Users.Any(u => u.UserName == adminUser.UserName)) 
@@ -64,6 +64,7 @@ namespace ReactIdentity.Infrastructure
                 var consumerUser = new ApplicationUser 
                 {
                     FirstName = "Consumer",
+                    LastName = "User",
                     Email = "consumer@example.com",
                     UserName = "consumer",
                     EmailConfirmed = true,
@@ -73,6 +74,7 @@ namespace ReactIdentity.Infrastructure
                     LockoutEnabled = true
                 };
                 consumerUser.NormalizedEmail = consumerUser.Email.ToUpper();
+                consumerUser.UserName = consumerUser.Email;
                 consumerUser.NormalizedUserName = consumerUser.UserName.ToUpper();
 
                 if(!context.Users.Any(u => u.UserName == consumerUser.UserName)) 

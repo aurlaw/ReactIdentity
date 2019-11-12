@@ -40,6 +40,10 @@ namespace ReactIdentity.Areas.Identity.Pages.Account.Manage
 
             [Display(Name = "First Name")]
             public string FirstName {get;set;}
+            [Required]
+            [Display(Name = "Last Name")]
+            public string LastName {get;set;}
+
 
 
         }
@@ -55,7 +59,8 @@ namespace ReactIdentity.Areas.Identity.Pages.Account.Manage
             Input = new InputModel
             {
                 PhoneNumber = phoneNumber,
-                FirstName = user.FirstName
+                FirstName = user.FirstName,
+                LastName = user.LastName
             };
         }
 
@@ -85,6 +90,7 @@ namespace ReactIdentity.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
             user.FirstName = Input.FirstName;
+            user.LastName = Input.LastName;
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             if (Input.PhoneNumber != phoneNumber)
                 user.PhoneNumber = Input.PhoneNumber;
@@ -94,18 +100,6 @@ namespace ReactIdentity.Areas.Identity.Pages.Account.Manage
                     throw new InvalidOperationException($"Unexpected error occurred saving info for user with ID '{userId}'.");
                 
             }
-
-            // var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-            // if (Input.PhoneNumber != phoneNumber)
-            // {
-            //     var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
-            //     if (!setPhoneResult.Succeeded)
-            //     {
-            //         var userId = await _userManager.GetUserIdAsync(user);
-            //         throw new InvalidOperationException($"Unexpected error occurred setting phone number for user with ID '{userId}'.");
-            //     }
-            // }
-
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
             return RedirectToPage();

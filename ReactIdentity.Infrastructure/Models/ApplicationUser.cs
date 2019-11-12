@@ -9,8 +9,12 @@ namespace ReactIdentity.Infrastructure.Models
 {
     public class ApplicationUser : IdentityUser
     {
+        [Required]
         [PersonalData]
         public string FirstName {get;set;}
+        [PersonalData]
+        [Required]
+        public string LastName {get;set;}
 
 
         

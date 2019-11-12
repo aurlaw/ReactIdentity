@@ -18,10 +18,11 @@ namespace ReactIdentity
         }      
         protected override async Task<ClaimsIdentity> GenerateClaimsAsync(ApplicationUser user) {
             var identity = await base.GenerateClaimsAsync(user);
-            identity.AddClaim(new Claim(JwtClaimTypes.GivenName, user.FirstName ?? ""));
+            identity.AddClaim(new Claim(JwtClaimTypes.GivenName, user.FirstName));
+            identity.AddClaim(new Claim(JwtClaimTypes.FamilyName, user.LastName));
             
             var roles = await UserManager.GetRolesAsync(user);
-            identity.AddClaims(roles.Select(r => new Claim(ClaimTypes.Role, r)));
+            identity.AddClaims(roles.Select(r => new Claim(JwtClaimTypes.Role, r)));
             return identity;
         }          
     }

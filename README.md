@@ -5,9 +5,9 @@ React SPA with .NET Core 3 using Identity Server
 
 ## Prerequisites
 
-.NET Core 3 SDK
-Node 10x
-Yarn (optional)
+* .NET Core 3 SDK
+* Node 10x
+* Yarn (optional)
 
 ## Installation
 
@@ -51,6 +51,20 @@ dotnet run --project ReactIdentity/ReactIdentity.csproj
 Launches server at https://localhost:9001
 
 
+The application uses two roles ```Admin``` and ```Consumer``` with the following test accounts:
+
+**Admin**
+```
+username: admin@example.com
+Password: mypassword
+```
+
+**Consumer**
+```
+username: consumer@example.com
+Password: mypassword
+```
+
 ## EF Migrations
 
 Migrations are managed within the ReactIdentity.Infrastructer class project
@@ -71,4 +85,5 @@ Update database
 ```
 dotnet ef database update --project ReactIdentity.Infrastructure/ReactIdentity.Infrastructure.csproj --startup-project ReactIdentity/ReactIdentity.csproj
 ```
+
 
