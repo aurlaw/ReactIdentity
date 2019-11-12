@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using ReactIdentity.Infrastructure.Data.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Builder;
 
 namespace ReactIdentity.Infrastructure
 {
-    public static class SeedIdentityExtension
+    public static class SeedExtension
     {
         public static void SeedIdentity(this IApplicationBuilder app) 
         {
@@ -39,7 +39,9 @@ namespace ReactIdentity.Infrastructure
                     EmailConfirmed = true,
                     PhoneNumber = "+111111111111",
                     PhoneNumberConfirmed = true,
-                    SecurityStamp = Guid.NewGuid().ToString("D")
+                    SecurityStamp = Guid.NewGuid().ToString("D"),
+                    LockoutEnabled = true
+                    
                 };
                 adminUser.NormalizedEmail = adminUser.Email.ToUpper();
                 adminUser.NormalizedUserName = adminUser.UserName.ToUpper();
@@ -67,7 +69,8 @@ namespace ReactIdentity.Infrastructure
                     EmailConfirmed = true,
                     PhoneNumber = "+111111111111",
                     PhoneNumberConfirmed = true,
-                    SecurityStamp = Guid.NewGuid().ToString("D")
+                    SecurityStamp = Guid.NewGuid().ToString("D"),
+                    LockoutEnabled = true
                 };
                 consumerUser.NormalizedEmail = consumerUser.Email.ToUpper();
                 consumerUser.NormalizedUserName = consumerUser.UserName.ToUpper();
@@ -88,19 +91,17 @@ namespace ReactIdentity.Infrastructure
 
             }
         }
-    private static IdentityResult AssignRoles(IApplicationBuilder app, string email, string[] roles)
-    {
-        using (var scope = app.ApplicationServices.CreateScope()) 
-        {
-            var _userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-            var user = _userManager.FindByEmailAsync(email).Result;
-            var result = _userManager.AddToRolesAsync(user, roles).Result;
+    // private static IdentityResult AssignRoles(IApplicationBuilder app, string email, string[] roles)
+    // {
+    //     using (var scope = app.ApplicationServices.CreateScope()) 
+    //     {
+    //         var _userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+    //         var user = _userManager.FindByEmailAsync(email).Result;
+    //         var result = _userManager.AddToRolesAsync(user, roles).Result;
 
-            return result;
+    //         return result;
             
-        }
+    //     }
+    // }
     }
-
-    }
-
 }
