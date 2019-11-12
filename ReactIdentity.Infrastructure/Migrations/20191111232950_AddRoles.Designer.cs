@@ -4,14 +4,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using ReactIdentity.Infrastructure.Data;
 using ReactIdentity.Infrastructure.Data.Identity;
 
 namespace ReactIdentity.Infrastructure.Migrations
 {
     [DbContext(typeof(AppIdentityDbContext))]
-    [Migration("20191109224050_InitialMigrations")]
-    partial class InitialMigrations
+    [Migration("20191111232950_AddRoles")]
+    partial class AddRoles
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -176,12 +175,10 @@ namespace ReactIdentity.Infrastructure.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(128);
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(128);
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("TEXT");
@@ -218,12 +215,10 @@ namespace ReactIdentity.Infrastructure.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(128);
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(128);
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Value")
                         .HasColumnType("TEXT");
@@ -251,6 +246,9 @@ namespace ReactIdentity.Infrastructure.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("INTEGER");

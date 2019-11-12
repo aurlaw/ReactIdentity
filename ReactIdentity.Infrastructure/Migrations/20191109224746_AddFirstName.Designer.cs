@@ -5,10 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ReactIdentity.Infrastructure.Data;
+using ReactIdentity.Infrastructure.Data.Identity;
 
 namespace ReactIdentity.Infrastructure.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(AppIdentityDbContext))]
     [Migration("20191109224746_AddFirstName")]
     partial class AddFirstName
     {

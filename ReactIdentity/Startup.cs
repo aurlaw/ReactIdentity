@@ -6,11 +6,15 @@ using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
-using ReactIdentity.Infrastructure.Data;
 using ReactIdentity.Infrastructure.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using ReactIdentity.Infrastructure;
+using ReactIdentity.Infrastructure.Data.Identity;
+using ReactIdentity.Infrastructure.Services;
+
 
 namespace ReactIdentity
 {
@@ -26,20 +30,25 @@ namespace ReactIdentity
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<AppIdentityDbContext>(options =>
                 options.UseSqlite(
                     Configuration.GetConnectionString("DefaultConnection"),
-                    assembly => assembly.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)
+                    assembly => assembly.MigrationsAssembly(typeof(AppIdentityDbContext).Assembly.FullName)
                     ));
-            services.AddDefaultIdentity<ApplicationUser>()
-                
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+            .AddDefaultUI()
+                .AddEntityFrameworkStores<AppIdentityDbContext>()
+                 .AddDefaultTokenProviders();
 
             services.AddIdentityServer()
-                .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
+                .AddApiAuthorization<ApplicationUser, AppIdentityDbContext>();
 
             // claims
-            services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, MyUserClaimsPrincipalFactory>();
+            services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, AppUserClaimsPrincipalFactory>();
+
+            // services
+            services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddAuthentication()
                 .AddIdentityServerJwt();
@@ -95,6 +104,9 @@ namespace ReactIdentity
                     spa.UseReactDevelopmentServer(npmScript: "start");
                 }
             });
+
+            // seed data
+            app.SeedIdentity();
         }
     }
 }

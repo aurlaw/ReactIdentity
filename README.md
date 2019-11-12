@@ -33,6 +33,15 @@ cd ReactIdentity\ClienApp
 npm install
 ```
 
+First time Run:
+
+Initialize db with ef migrations
+
+```
+dotnet ef database update --project ReactIdentity.Infrastructure/ReactIdentity.Infrastructure.csproj --startup-project ReactIdentity/ReactIdentity.csproj
+```
+
+
 Run application
 
 ```
@@ -62,3 +71,4 @@ Update database
 ```
 dotnet ef database update --project ReactIdentity.Infrastructure/ReactIdentity.Infrastructure.csproj --startup-project ReactIdentity/ReactIdentity.csproj
 ```
+

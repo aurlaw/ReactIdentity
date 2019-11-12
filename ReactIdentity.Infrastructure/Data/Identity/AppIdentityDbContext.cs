@@ -8,11 +8,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using ReactIdentity.Infrastructure.Models;
 
-namespace ReactIdentity.Infrastructure.Data
+namespace ReactIdentity.Infrastructure.Data.Identity
 {
-    public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>
+    public class AppIdentityDbContext : ApiAuthorizationDbContext<ApplicationUser>
     {
-        public ApplicationDbContext(
+        public AppIdentityDbContext(
             DbContextOptions options,
             IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
         {
