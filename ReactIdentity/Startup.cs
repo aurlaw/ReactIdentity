@@ -51,8 +51,15 @@ namespace ReactIdentity
             services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddAuthentication()
-                .AddIdentityServerJwt();
+                .AddGoogle(options => {
+                IConfigurationSection googleAuthNSection =
+                    Configuration.GetSection("Authentication:Google");
 
+                options.ClientId = googleAuthNSection["ClientId"];
+                options.ClientSecret = googleAuthNSection["ClientSecret"];
+
+                })
+                .AddIdentityServerJwt();
             services.AddControllersWithViews();
             services.AddRazorPages();
 

@@ -42,6 +42,18 @@ dotnet ef database update --project ReactIdentity.Infrastructure/ReactIdentity.I
 ```
 
 
+For Google Authentication
+
+Follow instructions on https://developers.google.com/identity/sign-in/web/sign-in?authuser=1 to create client credentials
+In the Authorized redirect URIs text entry box, set the redirect URI. For example, https://localhost:9001/signin-google
+
+```
+dotnet user-secrets init --project ReactIdentity/ReactIdentity.csproj
+dotnet user-secrets set "Authentication:Google:ClientId" "<client id>" --project ReactIdentity/ReactIdentity.csproj
+dotnet user-secrets set "Authentication:Google:ClientSecret" "<client secret>" --project ReactIdentity/ReactIdentity.csproj
+```
+
+
 Run application
 
 ```
@@ -85,5 +97,4 @@ Update database
 ```
 dotnet ef database update --project ReactIdentity.Infrastructure/ReactIdentity.Infrastructure.csproj --startup-project ReactIdentity/ReactIdentity.csproj
 ```
-
 

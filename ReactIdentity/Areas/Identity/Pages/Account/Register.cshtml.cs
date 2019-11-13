@@ -27,7 +27,7 @@ namespace ReactIdentity.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
 
-         RoleManager<IdentityRole> _roleManager;
+        private readonly  RoleManager<IdentityRole> _roleManager;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,

@@ -24,10 +24,12 @@ namespace ReactIdentity.Areas.Identity.Pages.Account
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger<ExternalLoginModel> _logger;
+        private readonly  RoleManager<IdentityRole> _roleManager;
 
         public ExternalLoginModel(
             SignInManager<ApplicationUser> signInManager,
             UserManager<ApplicationUser> userManager,
+             RoleManager<IdentityRole> roleManager,
             ILogger<ExternalLoginModel> logger,
             IEmailSender emailSender)
         {
@@ -35,11 +37,13 @@ namespace ReactIdentity.Areas.Identity.Pages.Account
             _userManager = userManager;
             _logger = logger;
             _emailSender = emailSender;
+            _roleManager = roleManager;
         }
 
         [BindProperty]
         public InputModel Input { get; set; }
-
+       public SelectList RoleOption {get;set;}
+ 
         public string LoginProvider { get; set; }
 
         public string ReturnUrl { get; set; }
@@ -52,6 +56,16 @@ namespace ReactIdentity.Areas.Identity.Pages.Account
             [Required]
             [EmailAddress]
             public string Email { get; set; }
+
+            [Display(Name = "First Name")]
+            public string FirstName {get;set;}
+            [Required]
+            [Display(Name = "Last Name")]
+            public string LastName {get;set;}
+            [Required]
+            [Display(Name = "Role")]
+            public string Role { get; set; }
+
         }
 
         public IActionResult OnGetAsync()
@@ -102,8 +116,12 @@ namespace ReactIdentity.Areas.Identity.Pages.Account
                 {
                     Input = new InputModel
                     {
-                        Email = info.Principal.FindFirstValue(ClaimTypes.Email)
+                        Email = info.Principal.FindFirstValue(ClaimTypes.Email),
+                        FirstName = info.Principal.FindFirstValue(ClaimTypes.GivenName),
+                        LastName = info.Principal.FindFirstValue(ClaimTypes.Surname),
                     };
+                    RoleOption = new SelectList(_roleManager.Roles.ToList(), "Name", "Name");
+
                 }
                 return Page();
             }
@@ -122,10 +140,14 @@ namespace ReactIdentity.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email };
+                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, FirstName = Input.FirstName, LastName = Input.LastName };
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
+                    // add to role
+                    var roleName = Input.Role;
+                    await _userManager.AddToRoleAsync(user, roleName);
+
                     result = await _userManager.AddLoginAsync(user, info);
                     if (result.Succeeded)
                     {
