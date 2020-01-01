@@ -23,13 +23,13 @@ Install React components
 
 If using Yarn
 ```
-cd ReactIdentity\ClienApp
+cd ReactIdentity/ClienApp
 yarn install
 ```
 
 If using npm
 ```
-cd ReactIdentity\ClienApp
+cd ReactIdentity/ClienApp
 npm install
 ```
 
@@ -88,6 +88,7 @@ dotnet tool install -g dotnet-ef
 ```
 
 Migrations
+
 ```
 dotnet ef migrations add {MIGRATION} --project ReactIdentity.Infrastructure/ReactIdentity.Infrastructure.csproj --startup-project ReactIdentity/ReactIdentity.csproj
 ```
@@ -97,4 +98,3 @@ Update database
 ```
 dotnet ef database update --project ReactIdentity.Infrastructure/ReactIdentity.Infrastructure.csproj --startup-project ReactIdentity/ReactIdentity.csproj
 ```
-
