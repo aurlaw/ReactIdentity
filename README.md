@@ -23,13 +23,13 @@ Install React components
 
 If using Yarn
 ```
-cd ReactIdentity/ClienApp
+cd ReactIdentity/ClientApp
 yarn install
 ```
 
 If using npm
 ```
-cd ReactIdentity/ClienApp
+cd ReactIdentity/ClientApp
 npm install
 ```
 
