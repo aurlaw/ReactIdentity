@@ -1,11 +1,11 @@
 # React Identity
 
-React SPA with .NET Core 3 using Identity Server
+React SPA with .NET Core 3.1 using Identity Server
 
 
 ## Prerequisites
 
-* .NET Core 3 SDK
+* .NET Core 3.1 SDK
 * Node 10x
 * Yarn (optional)
 
