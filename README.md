@@ -11,7 +11,7 @@ React SPA with .NET Core 3.1 using Identity Server
 
 ## Installation
 
-This project uses the .NET core 3 React SPA template with Identity, updated to use tle latest version of React (16.11). Identity Server uses Entity Framework Core with Sqlite database.
+This project uses the .NET core 3 React SPA template with Identity, updated to use the latest version of React (16.11). Identity Server uses Entity Framework Core with Sqlite database.
 
 Restore .NET components
 
